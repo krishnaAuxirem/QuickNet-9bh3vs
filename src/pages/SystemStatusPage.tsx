@@ -4,13 +4,21 @@ import Footer from "@/components/layout/Footer";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { CheckCircle, AlertTriangle, ArrowRight, Activity, Clock, Server, CloudLightning, Shield } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "@/lib/auth";
 
 export default function SystemStatusPage() {
+  const navigate = useNavigate();
   useScrollTop();
   const [email, setEmail] = useState("");
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isAuthenticated()) {
+      toast.error("Please login to subscribe to status updates!");
+      navigate("/login");
+      return;
+    }
     if (!email) return;
     toast.success("Subscribed to QuickNet incident notifications!");
     setEmail("");

@@ -5,6 +5,8 @@ import Footer from "@/components/layout/Footer";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { Briefcase, Globe, Heart, BookOpen, Coffee, ChevronDown, ChevronUp, Send, X } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "@/lib/auth";
 
 interface JobOpening {
   id: string;
@@ -76,6 +78,7 @@ const JOBS: JobOpening[] = [
 ];
 
 export default function CareersPage() {
+  const navigate = useNavigate();
   useScrollTop();
   const [selectedDept, setSelectedDept] = useState("All");
   const [expandedJob, setExpandedJob] = useState<string | null>(null);
@@ -261,9 +264,16 @@ export default function CareersPage() {
                               </ul>
                             </div>
 
-                            <div className="pt-4">
+                             <div className="pt-4">
                               <button
-                                onClick={() => setApplyJob(job)}
+                                onClick={() => {
+                                  if (!isAuthenticated()) {
+                                    toast.error("Please login to apply for positions!");
+                                    navigate("/login");
+                                    return;
+                                  }
+                                  setApplyJob(job);
+                                }}
                                 className="px-6 py-3 bg-navy text-white hover:bg-navy-light rounded-xl font-bold text-sm transition-colors"
                               >
                                 Apply for this role

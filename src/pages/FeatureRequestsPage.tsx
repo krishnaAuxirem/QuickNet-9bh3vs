@@ -4,6 +4,8 @@ import Footer from "@/components/layout/Footer";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { Sparkles, ThumbsUp, PlusCircle, Search, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "@/lib/auth";
 
 interface FeatureRequest {
   id: string;
@@ -15,6 +17,7 @@ interface FeatureRequest {
 }
 
 export default function FeatureRequestsPage() {
+  const navigate = useNavigate();
   useScrollTop();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCat, setSelectedCat] = useState("All");
@@ -31,6 +34,11 @@ export default function FeatureRequestsPage() {
   ]);
 
   const handleUpvote = (id: string) => {
+    if (!isAuthenticated()) {
+      toast.error("Please login to upvote feature requests!");
+      navigate("/login");
+      return;
+    }
     if (upvotedItems.includes(id)) {
       // Downvote / Undo
       setUpvotedItems(upvotedItems.filter((i) => i !== id));
@@ -46,6 +54,11 @@ export default function FeatureRequestsPage() {
 
   const handleCreateRequest = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isAuthenticated()) {
+      toast.error("Please login to submit feature requests!");
+      navigate("/login");
+      return;
+    }
     if (!reqTitle || !reqDesc) {
       toast.error("Please fill in the feature title and description!");
       return;

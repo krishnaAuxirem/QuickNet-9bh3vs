@@ -4,8 +4,11 @@ import Footer from "@/components/layout/Footer";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { ShieldCheck, Mail, Send, Award, Trash2, Download } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "@/lib/auth";
 
 export default function GdprPage() {
+  const navigate = useNavigate();
   useScrollTop();
   const [email, setEmail] = useState("");
   const [reqType, setReqType] = useState("export");
@@ -13,6 +16,11 @@ export default function GdprPage() {
 
   const handleGdprRequest = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isAuthenticated()) {
+      toast.error("Please login to submit GDPR requests!");
+      navigate("/login");
+      return;
+    }
     if (!email) {
       toast.error("Please enter your email address!");
       return;

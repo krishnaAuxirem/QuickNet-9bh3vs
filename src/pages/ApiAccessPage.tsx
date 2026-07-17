@@ -5,8 +5,11 @@ import Footer from "@/components/layout/Footer";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { Code, Terminal, Key, Copy, Check, ShieldCheck, Zap, BookOpen } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "@/lib/auth";
 
 export default function ApiAccessPage() {
+  const navigate = useNavigate();
   useScrollTop();
   const [activeLang, setActiveLang] = useState("curl");
   const [keyLabel, setKeyLabel] = useState("");
@@ -56,6 +59,11 @@ func main() {
 
   const handleGenerateKey = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isAuthenticated()) {
+      toast.error("Please login to generate sandbox API keys!");
+      navigate("/login");
+      return;
+    }
     if (!keyLabel.trim()) {
       toast.error("Please enter a key description label!");
       return;

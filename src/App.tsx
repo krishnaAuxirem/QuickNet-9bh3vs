@@ -91,7 +91,14 @@ export default function App() {
 
           {/* Missing Footer Pages */}
           <Route path="/security" element={<SecurityPage />} />
-          <Route path="/compression-demo" element={<CompressionDemoPage />} />
+          <Route
+            path="/compression-demo"
+            element={
+              <ProtectedRoute>
+                <CompressionDemoPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/analytics" element={<AnalyticsPage />} />
           <Route path="/api-access" element={<ApiAccessPage />} />
           <Route path="/blog" element={<BlogPage />} />

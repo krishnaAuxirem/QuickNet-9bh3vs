@@ -5,8 +5,11 @@ import Footer from "@/components/layout/Footer";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { Handshake, ShieldAlert, Award, Send, Building, Link as LinkIcon, Mail } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "@/lib/auth";
 
 export default function PartnersPage() {
+  const navigate = useNavigate();
   useScrollTop();
   const [partnerName, setPartnerName] = useState("");
   const [partnerCompany, setPartnerCompany] = useState("");
@@ -17,6 +20,11 @@ export default function PartnersPage() {
 
   const handleSubmitPartner = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isAuthenticated()) {
+      toast.error("Please login to submit partnership pitches!");
+      navigate("/login");
+      return;
+    }
     if (!partnerName || !partnerCompany || !partnerEmail || !partnerMessage) {
       toast.error("Please fill in all required fields!");
       return;

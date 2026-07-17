@@ -4,8 +4,11 @@ import Footer from "@/components/layout/Footer";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { ShieldCheck, Eye, ToggleLeft, ToggleRight, Check } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "@/lib/auth";
 
 export default function CookiePolicyPage() {
+  const navigate = useNavigate();
   useScrollTop();
   const [analyticsCookies, setAnalyticsCookies] = useState(true);
   const [marketingCookies, setMarketingCookies] = useState(false);
@@ -23,6 +26,11 @@ export default function CookiePolicyPage() {
   };
 
   const handleSavePreferences = () => {
+    if (!isAuthenticated()) {
+      toast.error("Please login to save preferences!");
+      navigate("/login");
+      return;
+    }
     toast.success("Cookie preferences saved successfully!");
   };
 

@@ -4,8 +4,11 @@ import Footer from "@/components/layout/Footer";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { ShieldCheck, Mail, Send, Award, Key, Copy, Check } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "@/lib/auth";
 
 export default function SecurityPolicyPage() {
+  const navigate = useNavigate();
   useScrollTop();
   const [reportTitle, setReportTitle] = useState("");
   const [reportDesc, setReportDesc] = useState("");
@@ -29,6 +32,11 @@ mQINBFT2zZ0BEADcvbVspW9e6K48eZ8x/wOaW+D/nF6tWd5Q5rN/1bWp01F4...
 
   const handleSubmitReport = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isAuthenticated()) {
+      toast.error("Please login to submit security reports!");
+      navigate("/login");
+      return;
+    }
     if (!reportTitle || !reportDesc || !reporterEmail) {
       toast.error("Please fill in all report fields!");
       return;

@@ -4,8 +4,11 @@ import Footer from "@/components/layout/Footer";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { ShieldAlert, AlertOctagon, HelpCircle, Send, Check } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "@/lib/auth";
 
 export default function AcceptableUsePage() {
+  const navigate = useNavigate();
   useScrollTop();
   const [abuseLink, setAbuseLink] = useState("");
   const [abuseEmail, setAbuseEmail] = useState("");
@@ -13,6 +16,11 @@ export default function AcceptableUsePage() {
 
   const handleReportAbuse = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isAuthenticated()) {
+      toast.error("Please login to report policy violations!");
+      navigate("/login");
+      return;
+    }
     if (!abuseLink || !abuseEmail) {
       toast.error("Please fill in the required fields!");
       return;

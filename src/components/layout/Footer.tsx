@@ -7,6 +7,7 @@ import {
 import { SOCIAL_LINKS } from "@/constants";
 import { useState } from "react";
 import { toast } from "sonner";
+import { isAuthenticated } from "@/lib/auth";
 
 const FOOTER_LINKS = {
   Product: [
@@ -71,6 +72,11 @@ export default function Footer() {
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isAuthenticated()) {
+      toast.error("Please login to subscribe to updates!");
+      navigate("/login");
+      return;
+    }
     if (!email) return;
     toast.success("You've been subscribed to QuickNet updates!");
     setEmail("");

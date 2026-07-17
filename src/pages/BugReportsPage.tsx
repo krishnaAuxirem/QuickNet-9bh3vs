@@ -4,6 +4,8 @@ import Footer from "@/components/layout/Footer";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { ShieldAlert, Send, Eye, CheckCircle2, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "@/lib/auth";
 
 interface ReportedBug {
   id: string;
@@ -14,6 +16,7 @@ interface ReportedBug {
 }
 
 export default function BugReportsPage() {
+  const navigate = useNavigate();
   useScrollTop();
   const [bugTitle, setBugTitle] = useState("");
   const [bugSeverity, setBugSeverity] = useState("medium");
@@ -29,6 +32,11 @@ export default function BugReportsPage() {
 
   const handleSubmitBug = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isAuthenticated()) {
+      toast.error("Please login to report bugs!");
+      navigate("/login");
+      return;
+    }
     if (!bugTitle || !bugSteps || !bugEnv) {
       toast.error("Please fill in all form details!");
       return;

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sliders, Zap, CheckCircle, ArrowRight, FileText, Archive, Film, Image } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "@/lib/auth";
+import { toast } from "sonner";
 
 const FILE_TYPES = [
   { name: "Project_Report.pdf", size: 48600000, icon: FileText, color: "text-red-500" },
@@ -22,6 +25,7 @@ function formatBytes(bytes: number) {
 }
 
 export default function CompressionDemo() {
+  const navigate = useNavigate();
   const [selected, setSelected] = useState(0);
   const [level, setLevel] = useState<"high" | "medium" | "low">("high");
   const [compressing, setCompressing] = useState(false);
@@ -33,6 +37,11 @@ export default function CompressionDemo() {
   const compressed = Math.floor(file.size * lvl.ratio);
 
   const handleCompress = () => {
+    if (!isAuthenticated()) {
+      toast.error("Please login to test file compression!");
+      navigate("/login");
+      return;
+    }
     setDone(false);
     setCompressing(true);
     setProgress(0);

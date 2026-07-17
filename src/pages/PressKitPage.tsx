@@ -5,8 +5,11 @@ import Footer from "@/components/layout/Footer";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { Download, Mail, Copy, Check, FileText, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "@/lib/auth";
 
 export default function PressKitPage() {
+  const navigate = useNavigate();
   useScrollTop();
   const [copiedHex, setCopiedHex] = useState<string | null>(null);
 
@@ -31,6 +34,11 @@ export default function PressKitPage() {
   ];
 
   const handleDownloadAsset = (name: string) => {
+    if (!isAuthenticated()) {
+      toast.error("Please login to download press assets!");
+      navigate("/login");
+      return;
+    }
     toast.success(`Downloading ${name} mockup asset file!`);
   };
 

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send, Clock, MessageSquare, Headphones } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "@/lib/auth";
 
 const CONTACT_METHODS = [
   {
@@ -35,11 +37,17 @@ const CONTACT_METHODS = [
 ];
 
 export default function ContactSection() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isAuthenticated()) {
+      toast.error("Please login to contact support!");
+      navigate("/login");
+      return;
+    }
     setSubmitting(true);
     await new Promise((r) => setTimeout(r, 1500));
     toast.success("Message sent! We'll get back to you within 24 hours.");

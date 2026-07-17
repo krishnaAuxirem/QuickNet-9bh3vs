@@ -5,6 +5,8 @@ import Footer from "@/components/layout/Footer";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { Search, Calendar, User, Clock, ArrowRight, X, Send } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "@/lib/auth";
 
 interface BlogPost {
   id: string;
@@ -66,6 +68,7 @@ const BLOG_POSTS: BlogPost[] = [
 ];
 
 export default function BlogPage() {
+  const navigate = useNavigate();
   useScrollTop();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -83,6 +86,11 @@ export default function BlogPage() {
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isAuthenticated()) {
+      toast.error("Please login to subscribe to blog newsletters!");
+      navigate("/login");
+      return;
+    }
     if (!newsletterEmail) return;
     toast.success("Successfully subscribed to QuickNet Blog!");
     setNewsletterEmail("");
