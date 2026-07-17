@@ -16,6 +16,28 @@ const AboutPage = lazy(() => import("@/pages/AboutPage"));
 const ContactPage = lazy(() => import("@/pages/ContactPage"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 
+// Missing Footer Pages
+const SecurityPage = lazy(() => import("@/pages/SecurityPage"));
+const CompressionDemoPage = lazy(() => import("@/pages/CompressionDemoPage"));
+const AnalyticsPage = lazy(() => import("@/pages/AnalyticsPage"));
+const ApiAccessPage = lazy(() => import("@/pages/ApiAccessPage"));
+const BlogPage = lazy(() => import("@/pages/BlogPage"));
+const CareersPage = lazy(() => import("@/pages/CareersPage"));
+const PressKitPage = lazy(() => import("@/pages/PressKitPage"));
+const PartnersPage = lazy(() => import("@/pages/PartnersPage"));
+const HelpCenterPage = lazy(() => import("@/pages/HelpCenterPage"));
+const DocsPage = lazy(() => import("@/pages/DocsPage"));
+const SystemStatusPage = lazy(() => import("@/pages/SystemStatusPage"));
+const CommunityPage = lazy(() => import("@/pages/CommunityPage"));
+const BugReportsPage = lazy(() => import("@/pages/BugReportsPage"));
+const FeatureRequestsPage = lazy(() => import("@/pages/FeatureRequestsPage"));
+const PrivacyPage = lazy(() => import("@/pages/PrivacyPage"));
+const TermsPage = lazy(() => import("@/pages/TermsPage"));
+const CookiePolicyPage = lazy(() => import("@/pages/CookiePolicyPage"));
+const GdprPage = lazy(() => import("@/pages/GdprPage"));
+const SecurityPolicyPage = lazy(() => import("@/pages/SecurityPolicyPage"));
+const AcceptableUsePage = lazy(() => import("@/pages/AcceptableUsePage"));
+
 function PageLoader() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white">
@@ -66,6 +88,28 @@ export default function App() {
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+
+          {/* Missing Footer Pages */}
+          <Route path="/security" element={<SecurityPage />} />
+          <Route path="/compression-demo" element={<CompressionDemoPage />} />
+          <Route path="/analytics" element={<AnalyticsPage />} />
+          <Route path="/api-access" element={<ApiAccessPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/careers" element={<CareersPage />} />
+          <Route path="/press-kit" element={<PressKitPage />} />
+          <Route path="/partners" element={<PartnersPage />} />
+          <Route path="/help-center" element={<HelpCenterPage />} />
+          <Route path="/docs" element={<DocsPage />} />
+          <Route path="/system-status" element={<SystemStatusPage />} />
+          <Route path="/community" element={<CommunityPage />} />
+          <Route path="/bug-reports" element={<BugReportsPage />} />
+          <Route path="/feature-requests" element={<FeatureRequestsPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/cookies" element={<CookiePolicyPage />} />
+          <Route path="/gdpr" element={<GdprPage />} />
+          <Route path="/security-policy" element={<SecurityPolicyPage />} />
+          <Route path="/acceptable-use" element={<AcceptableUsePage />} />
           <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
           <Route path="/register" element={<GuestRoute><Register /></GuestRoute>} />
 

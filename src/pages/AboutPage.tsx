@@ -5,7 +5,7 @@ import { useScrollTop } from "@/hooks/useScrollTop";
 import { Link } from "react-router-dom";
 import {
   Zap, ArrowRight, Target, Heart, Globe, Users, Award, TrendingUp,
-  MapPin, Linkedin, Twitter,
+  Lock, Shield, Zap as Sparkles, Gauge,
 } from "lucide-react";
 
 const STATS = [
@@ -42,60 +42,36 @@ const VALUES = [
   },
 ];
 
-const TEAM = [
+const PRODUCT_FEATURES = [
   {
-    name: "Arjun Mehta",
-    role: "CEO & Co-Founder",
-    bio: "Former VP Engineering at Flipkart. IIT Bombay alumni. 12+ years in distributed systems.",
-    avatar: "AM",
-    location: "Bengaluru",
-    linkedin: "#",
-    twitter: "#",
+    icon: Gauge,
+    title: "Lightning-Fast Transfers",
+    desc: "Experience file transfers at speeds up to 10 Gbps with our globally distributed CDN infrastructure optimized for Indian networks.",
   },
   {
-    name: "Divya Nair",
-    role: "CTO & Co-Founder",
-    bio: "Previously led infrastructure at PhonePe. Expert in high-throughput data pipelines.",
-    avatar: "DN",
-    location: "Bengaluru",
-    linkedin: "#",
-    twitter: "#",
+    icon: Lock,
+    title: "Military-Grade Security",
+    desc: "AES-256 encryption, zero-knowledge architecture, and ISO 27001 certification ensure your files are always protected.",
   },
   {
-    name: "Rohan Gupta",
-    role: "Head of Product",
-    bio: "Ex-Swiggy Product Lead. Passionate about building tools that feel magical to use.",
-    avatar: "RG",
-    location: "Mumbai",
-    linkedin: "#",
-    twitter: "#",
+    icon: Sparkles,
+    title: "Smart Compression",
+    desc: "Our AI-powered compression engine reduces file sizes by up to 70% while maintaining original quality.",
   },
   {
-    name: "Sneha Iyer",
-    role: "Head of Security",
-    bio: "CISSP certified. Former security engineer at CERT-In. Architect of QuickNet's 7-layer security system.",
-    avatar: "SI",
-    location: "Hyderabad",
-    linkedin: "#",
-    twitter: "#",
+    icon: Users,
+    title: "Team Collaboration",
+    desc: "Share files securely with granular access controls, expiry dates, and download limits for enterprise-grade sharing.",
   },
   {
-    name: "Karan Verma",
-    role: "Lead Backend Engineer",
-    bio: "Systems engineer specializing in Rust and Go. Built the compression engine that powers QuickNet.",
-    avatar: "KV",
-    location: "Bengaluru",
-    linkedin: "#",
-    twitter: "#",
+    icon: Globe,
+    title: "Global Reach",
+    desc: "Servers in 30+ countries with automatic routing ensure fast, reliable transfers no matter where your team is located.",
   },
   {
-    name: "Ananya Roy",
-    role: "Head of Design",
-    bio: "Former design lead at Razorpay. Believes great UX is the best feature a product can have.",
-    avatar: "AR",
-    location: "Pune",
-    linkedin: "#",
-    twitter: "#",
+    icon: Shield,
+    title: "Enterprise Ready",
+    desc: "GDPR compliant, SOC 2 Type II certified, with dedicated support for teams of all sizes.",
   },
 ];
 
@@ -275,55 +251,40 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team */}
+      {/* Product */}
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <span className="inline-block px-4 py-2 rounded-full bg-navy/8 text-navy text-sm font-semibold mb-5">
-              The Team
+              About QuickNet
             </span>
             <h2 className="font-display text-4xl font-bold text-navy mb-4">
-              Meet the People Behind QuickNet
+              Powerful Features for Modern Teams
             </h2>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              A diverse team of engineers, designers, and product thinkers united by one goal: making file sharing fast, safe, and delightful.
+              QuickNet combines cutting-edge technology with thoughtful design to make file sharing effortless, secure, and fast.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TEAM.map((member, i) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-md hover:border-navy/15 transition-all"
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-2xl bg-navy flex items-center justify-center font-display font-bold text-white text-lg flex-shrink-0">
-                    {member.avatar}
+            {PRODUCT_FEATURES.map((feature, i) => {
+              const Icon = feature.icon;
+              return (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-md hover:border-navy/15 transition-all"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-navy/10 flex items-center justify-center mb-5">
+                    <Icon className="w-6 h-6 text-navy" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-display font-bold text-navy">{member.name}</h3>
-                    <p className="text-[#00FFC2] text-xs font-semibold bg-navy px-2 py-0.5 rounded-full inline-block mt-1">{member.role}</p>
-                  </div>
-                </div>
-                <p className="text-gray-500 text-sm leading-relaxed mb-4">{member.bio}</p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-gray-400 text-xs">
-                    <MapPin className="w-3.5 h-3.5" /> {member.location}
-                  </div>
-                  <div className="flex gap-2">
-                    <a href={member.linkedin} className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 hover:text-navy hover:bg-gray-200 transition-all">
-                      <Linkedin className="w-4 h-4" />
-                    </a>
-                    <a href={member.twitter} className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 hover:text-navy hover:bg-gray-200 transition-all">
-                      <Twitter className="w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                  <h3 className="font-display font-bold text-navy text-lg mb-3">{feature.title}</h3>
+                  <p className="text-gray-500 leading-relaxed">{feature.desc}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
