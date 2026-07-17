@@ -76,8 +76,15 @@ export default function Register() {
           </p>
         </div>
         <div className="relative space-y-4">
-          {["✅ 2 GB Free Storage Forever", "✅ Zero Setup Required", "✅ Share with Anyone, Anywhere"].map((f) => (
-            <p key={f} className="text-white/70 text-sm">{f}</p>
+          {[
+            "2 GB Free Storage Forever",
+            "Zero Setup Required",
+            "Share with Anyone, Anywhere",
+          ].map((text) => (
+            <p key={text} className="text-white/70 text-sm flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-mint flex-shrink-0" />
+              {text}
+            </p>
           ))}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { PRICING_PLANS } from "@/constants";
-import { CheckCircle, Zap } from "lucide-react";
+import { CheckCircle, Zap, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -69,8 +69,8 @@ export default function PricingSection() {
                 }`}
               >
                 {plan.highlighted && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-mint text-navy text-xs font-bold rounded-full whitespace-nowrap">
-                    ⭐ Most Popular
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-mint text-navy text-xs font-bold rounded-full whitespace-nowrap inline-flex items-center gap-1">
+                    <Star className="w-3.5 h-3.5" /> Most Popular
                   </div>
                 )}
 

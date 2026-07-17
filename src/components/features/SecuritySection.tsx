@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Shield, Lock, Eye, Server, FileCheck, Globe } from "lucide-react";
+import { Shield, Lock, Eye, Server, FileCheck, Globe, CheckCircle } from "lucide-react";
 
 const FEATURES = [
   {
@@ -108,9 +108,10 @@ export default function SecuritySection() {
             {BADGES.map((badge) => (
               <span
                 key={badge}
-                className="px-4 py-2 rounded-xl bg-mint/10 border border-mint/20 text-mint text-sm font-bold"
+                className="px-4 py-2 rounded-xl bg-mint/10 border border-mint/20 text-mint text-sm font-bold inline-flex items-center gap-2"
               >
-                ✓ {badge}
+                <CheckCircle className="w-4 h-4" />
+                {badge}
               </span>
             ))}
           </div>

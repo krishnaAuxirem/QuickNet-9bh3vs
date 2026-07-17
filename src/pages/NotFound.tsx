@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Zap, Home, ArrowLeft } from "lucide-react";
-import cat1 from "@/assets/cat1.jpg";
 
 export default function NotFound() {
   return (
@@ -16,15 +15,17 @@ export default function NotFound() {
         </span>
       </Link>
 
-      {/* Cat Image */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: "spring", stiffness: 200 }}
-        className="w-48 h-48 rounded-3xl overflow-hidden border-4 border-mint/20 mb-8 shadow-2xl"
+        className="w-48 h-48 rounded-3xl bg-white/5 border-4 border-mint/20 mb-8 shadow-2xl flex items-center justify-center"
         style={{ boxShadow: "0 0 60px rgba(0,255,194,0.15)" }}
       >
-        <img src={cat1} alt="Lost cat" className="w-full h-full object-cover" />
+        <div className="text-center px-4">
+          <ArrowLeft className="mx-auto mb-3 w-12 h-12 text-mint" />
+          <p className="text-white/70 text-sm">Page not found</p>
+        </div>
       </motion.div>
 
       <motion.div

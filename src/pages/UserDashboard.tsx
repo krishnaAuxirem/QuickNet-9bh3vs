@@ -4,7 +4,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   Upload, FileText, Bell, User, LayoutDashboard, Download,
   Trash2, Search, Filter, TrendingUp, HardDrive, Link2, Activity,
-  CheckCircle, AlertTriangle, Info,
+  CheckCircle, AlertTriangle, Info, Hand, ArrowLeft,
 } from "lucide-react";
 import DashboardSidebar from "@/components/layout/DashboardSidebar";
 import FileUploadZone from "@/components/features/FileUploadZone";
@@ -156,12 +156,20 @@ export default function UserDashboard() {
         {/* Header */}
         <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
           <div>
-            <h1 className="font-display text-xl font-bold text-navy">
-              Welcome back, {user?.name?.split(" ")[0]}! 👋
+            <h1 className="font-display text-xl font-bold text-navy inline-flex items-center gap-2">
+              Welcome back, {user?.name?.split(" ")[0]}!
+              <Hand className="w-5 h-5 text-mint" />
             </h1>
             <p className="text-sm text-gray-500">Here's your file activity overview</p>
           </div>
           <div className="flex items-center gap-3">
+            <Link
+              to="/"
+              className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-50 transition-colors"
+              title="Back to website"
+            >
+              <ArrowLeft className="w-4 h-4" /> Website
+            </Link>
             <span className={`px-3 py-1 rounded-full text-xs font-bold capitalize ${
               user?.plan === "pro" ? "bg-blue-100 text-blue-700" :
               user?.plan === "enterprise" ? "bg-purple-100 text-purple-700" :
@@ -179,26 +187,6 @@ export default function UserDashboard() {
         </div>
 
         <div className="p-6 space-y-6">
-          {/* Tab Nav */}
-          <div className="flex gap-1 bg-gray-100 p-1 rounded-xl w-fit flex-wrap">
-            {TABS.map((t) => (
-              <button
-                key={t}
-                onClick={() => setActiveTab(t)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium capitalize transition-all relative ${
-                  activeTab === t ? "bg-white text-navy shadow-sm font-semibold" : "text-gray-500 hover:text-navy"
-                }`}
-              >
-                {t}
-                {t === "notifications" && unreadCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-navy text-white text-xs flex items-center justify-center font-bold">
-                    {unreadCount}
-                  </span>
-                )}
-              </button>
-            ))}
-          </div>
-
           {/* ── Overview ── */}
           {activeTab === "overview" && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   LayoutDashboard, BarChart3, Users, Shield, Upload,
   Send, Lock, Calendar, TrendingUp, Download, Globe,
+  Plus, Search, Bell, Settings, LogOut, ArrowLeft,
 } from "lucide-react";
 import DashboardSidebar from "@/components/layout/DashboardSidebar";
 import FileUploadZone from "@/components/features/FileUploadZone";
@@ -102,26 +103,22 @@ export default function BusinessDashboard() {
             <h1 className="font-display text-xl font-bold text-white">Business Dashboard</h1>
             <p className="text-white/40 text-sm">{user?.name} · Enterprise Plan</p>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-mint animate-pulse" />
-            <span className="text-mint text-sm font-semibold">Live</span>
+          <div className="flex items-center gap-4">
+            <Link
+              to="/"
+              className="flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg text-sm font-semibold hover:bg-white/15 transition-colors"
+              title="Back to website"
+            >
+              <ArrowLeft className="w-4 h-4" /> Website
+            </Link>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-mint/10 border border-mint/20">
+              <div className="w-2 h-2 rounded-full bg-mint animate-pulse" />
+              <span className="text-mint text-sm font-semibold">Live</span>
+            </div>
           </div>
         </div>
 
         <div className="p-6 space-y-6">
-          {/* Tabs */}
-          <div className="flex gap-1 bg-white/5 p-1 rounded-xl w-fit border border-white/10 flex-wrap">
-            {TABS.map((t) => (
-              <button
-                key={t}
-                onClick={() => setActiveTab(t)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium capitalize transition-all ${activeTab === t ? "bg-mint text-navy font-bold" : "text-white/60 hover:text-white"}`}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
-
           {/* ── Overview ── */}
           {activeTab === "overview" && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
@@ -327,9 +324,7 @@ export default function BusinessDashboard() {
               <div className="bg-charcoal-light rounded-2xl p-8 border border-white/10">
                 <h2 className="font-display text-xl font-bold text-white mb-2">Upload & Compress</h2>
                 <p className="text-white/50 text-sm mb-6">Drag & drop files or browse. Business plan supports up to 5 GB per file.</p>
-                <div className="[&_.upload-dashed]:border-white/20 [&_.upload-dashed]:bg-white/3 [&_p]:text-white/70">
-                  <FileUploadZone />
-                </div>
+                <FileUploadZone />
               </div>
             </motion.div>
           )}

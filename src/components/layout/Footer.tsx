@@ -191,8 +191,8 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/30 text-sm text-center">
-            © {new Date().getFullYear()} QuickNet Technologies Pvt. Ltd. · Made with ⚡ in Bengaluru, India
+          <p className="text-white/30 text-sm text-center inline-flex items-center justify-center gap-1">
+            © {new Date().getFullYear()} QuickNet Technologies Pvt. Ltd. · Made with <Zap className="w-4 h-4 text-mint" /> in Bengaluru, India
           </p>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1.5 text-white/30 text-xs">

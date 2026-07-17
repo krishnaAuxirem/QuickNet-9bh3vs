@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sliders, Zap, CheckCircle, ArrowRight } from "lucide-react";
+import { Sliders, Zap, CheckCircle, ArrowRight, FileText, Archive, Film, Image } from "lucide-react";
 
 const FILE_TYPES = [
-  { name: "Project_Report.pdf", size: 48600000, icon: "📄", color: "text-red-500" },
-  { name: "Team_Photos.zip", size: 209715200, icon: "🗜️", color: "text-orange-500" },
-  { name: "Demo_Video.mp4", size: 524288000, icon: "🎬", color: "text-blue-500" },
-  { name: "Design_Assets.psd", size: 104857600, icon: "🎨", color: "text-purple-500" },
+  { name: "Project_Report.pdf", size: 48600000, icon: FileText, color: "text-red-500" },
+  { name: "Team_Photos.zip", size: 209715200, icon: Archive, color: "text-orange-500" },
+  { name: "Demo_Video.mp4", size: 524288000, icon: Film, color: "text-blue-500" },
+  { name: "Design_Assets.psd", size: 104857600, icon: Image, color: "text-purple-500" },
 ];
 
 const LEVELS = [
@@ -88,21 +88,26 @@ export default function CompressionDemo() {
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
               <h3 className="text-white/60 text-sm font-semibold uppercase tracking-wider mb-4">1. Select File Type</h3>
               <div className="grid grid-cols-2 gap-3">
-                {FILE_TYPES.map((f, i) => (
-                  <button
-                    key={f.name}
-                    onClick={() => { setSelected(i); setDone(false); setProgress(0); }}
-                    className={`p-4 rounded-xl border text-left transition-all ${
-                      selected === i
-                        ? "border-mint bg-mint/10"
-                        : "border-white/10 hover:border-white/25 bg-white/3"
-                    }`}
-                  >
-                    <span className="text-2xl block mb-2">{f.icon}</span>
-                    <p className={`text-xs font-bold truncate ${selected === i ? "text-mint" : "text-white/60"}`}>{f.name}</p>
-                    <p className="text-white/30 text-xs mt-0.5">{formatBytes(f.size)}</p>
-                  </button>
-                ))}
+                {FILE_TYPES.map((f, i) => {
+                  const Icon = f.icon;
+                  return (
+                    <button
+                      key={f.name}
+                      onClick={() => { setSelected(i); setDone(false); setProgress(0); }}
+                      className={`p-4 rounded-xl border text-left transition-all ${
+                        selected === i
+                          ? "border-mint bg-mint/10"
+                          : "border-white/10 hover:border-white/25 bg-white/3"
+                      }`}
+                    >
+                      <span className="text-2xl block mb-2">
+                        <Icon className={`${f.color} w-8 h-8`} />
+                      </span>
+                      <p className={`text-xs font-bold truncate ${selected === i ? "text-mint" : "text-white/60"}`}>{f.name}</p>
+                      <p className="text-white/30 text-xs mt-0.5">{formatBytes(f.size)}</p>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -159,8 +164,12 @@ export default function CompressionDemo() {
                   <span className="text-white font-bold">{formatBytes(file.size)}</span>
                 </div>
                 <div className="h-10 bg-white/10 rounded-xl overflow-hidden">
-                  <div className="h-full w-full bg-white/20 rounded-xl flex items-center px-4">
-                    <span className="text-white/60 text-xs">{file.icon} {file.name}</span>
+                  <div className="h-full w-full bg-white/20 rounded-xl flex items-center px-4 gap-2">
+                    {(() => {
+                      const FileIcon = file.icon;
+                      return <FileIcon className="w-4 h-4 text-white/60" />;
+                    })()}
+                    <span className="text-white/60 text-xs">{file.name}</span>
                   </div>
                 </div>
               </div>

@@ -13,7 +13,6 @@ import ContactSection from "@/components/features/ContactSection";
 import CompressionDemo from "@/components/features/CompressionDemo";
 import TransferAnimation from "@/components/features/TransferAnimation";
 import FinalCTA from "@/components/features/FinalCTA";
-import CatSlider from "@/components/features/CatSlider";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Zap, Shield, Globe, Users } from "lucide-react";
@@ -127,9 +126,7 @@ export default function Home() {
       <TransferAnimation />
       {/* 6. Security */}
       <SecuritySection />
-      {/* 7. Cat Mascot Slider */}
-      <CatSlider />
-      {/* 8. Analytics Preview */}
+      {/* 7. Analytics Preview */}
       <AnalyticsPreview />
       {/* 9. About */}
       <AboutSection />

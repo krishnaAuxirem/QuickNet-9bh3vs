@@ -6,10 +6,6 @@ import hero1 from "@/assets/hero1.jpg";
 import hero2 from "@/assets/hero2.jpg";
 import hero3 from "@/assets/hero3.jpg";
 import hero4 from "@/assets/hero4.jpg";
-import cat1 from "@/assets/cat1.jpg";
-import cat2 from "@/assets/cat2.jpg";
-import cat3 from "@/assets/cat3.jpg";
-import cat4 from "@/assets/cat4.jpg";
 
 const slides = [
   {
@@ -66,17 +62,9 @@ const slides = [
   },
 ];
 
-const cats = [
-  { img: cat1, label: "QuickCat is Ready!" },
-  { img: cat2, label: "Upload Expert Cat" },
-  { img: cat3, label: "Security Guardian Cat" },
-  { img: cat4, label: "Speed Demon Cat" },
-];
-
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
-  const [catIndex, setCatIndex] = useState(0);
 
   const goNext = useCallback(() => {
     setDirection(1);
@@ -92,13 +80,6 @@ export default function HeroSlider() {
     const timer = setInterval(goNext, 5500);
     return () => clearInterval(timer);
   }, [goNext]);
-
-  useEffect(() => {
-    const catTimer = setInterval(() => {
-      setCatIndex((prev) => (prev + 1) % cats.length);
-    }, 3000);
-    return () => clearInterval(catTimer);
-  }, []);
 
   const slideVariants = {
     enter: (dir: number) => ({ y: dir > 0 ? "100%" : "-100%", opacity: 0 }),
@@ -207,94 +188,6 @@ export default function HeroSlider() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Right: Cat Mascot Slider Panel */}
-            <div className="hidden lg:flex flex-col items-center gap-6">
-              {/* Cat Slider Card */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="relative w-full max-w-sm"
-              >
-                {/* Glow backdrop */}
-                <div className="absolute inset-0 rounded-3xl bg-mint/10 blur-2xl scale-110" />
-
-                <div className="relative bg-white/5 backdrop-blur-md border border-white/15 rounded-3xl p-5 overflow-hidden">
-                  {/* Header */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-mint animate-pulse" />
-                      <span className="text-mint text-xs font-bold uppercase tracking-wider">QuickNet Mascot</span>
-                    </div>
-                    <div className="flex gap-1">
-                      {cats.map((_, i) => (
-                        <button
-                          key={i}
-                          onClick={() => setCatIndex(i)}
-                          className={`rounded-full transition-all ${i === catIndex ? "w-4 h-2 bg-mint" : "w-2 h-2 bg-white/30"}`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Cat Image */}
-                  <div className="relative rounded-2xl overflow-hidden aspect-square mb-4">
-                    <AnimatePresence mode="wait">
-                      <motion.img
-                        key={catIndex}
-                        src={cats[catIndex].img}
-                        alt={cats[catIndex].label}
-                        initial={{ opacity: 0, scale: 1.05 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        transition={{ duration: 0.5 }}
-                        className="w-full h-full object-cover"
-                      />
-                    </AnimatePresence>
-                    {/* Corner decoration */}
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-navy/80 to-transparent p-3">
-                      <p className="text-white text-sm font-bold">{cats[catIndex].label}</p>
-                    </div>
-                  </div>
-
-                  {/* Transfer Simulation UI */}
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-white/50">Uploading file...</span>
-                      <span className="text-mint font-bold">9.4 Gbps</span>
-                    </div>
-                    <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                      <motion.div
-                        className="h-full rounded-full"
-                        style={{ background: "linear-gradient(90deg, #00FFC2, #00CC9B)", boxShadow: "0 0 12px rgba(0,255,194,0.6)" }}
-                        animate={{ width: ["20%", "85%", "20%"] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                      />
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex-1 h-px bg-white/10" />
-                      <span className="text-white/30 text-xs">AES-256 encrypted</span>
-                      <div className="flex-1 h-px bg-white/10" />
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Floating file type chips */}
-              <div className="flex flex-wrap gap-2 justify-center">
-                {["PDF", "MP4", "ZIP", "PSD", "DOCX", "RAW"].map((ext, i) => (
-                  <motion.span
-                    key={ext}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 + i * 0.07 }}
-                    className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/50 text-xs font-mono hover:border-mint/50 hover:text-mint transition-all cursor-default"
-                  >
-                    .{ext}
-                  </motion.span>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </div>
